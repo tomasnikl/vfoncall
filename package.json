@@ -17,6 +17,14 @@
   "author": "GitHub",
   "license": "CC0-1.0",
   "devDependencies": {
-    "electron": "^9.2.0"
+    "electron": "^9.2.0",
+    "electron-packager": "^15.0.0"
+  },
+  "dependencies": {
+    "bootstrap": "^4.5.2",
+    "electron-reload": "^1.5.0",
+    "jquery": "^3.5.1",
+    "moment": "^2.27.0",
+    "moment-business": "^3.0.1"
   }
 }

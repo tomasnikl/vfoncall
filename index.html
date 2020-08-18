@@ -1,19 +1,152 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <meta charset="UTF-8">
     <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
-    <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+<!--    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">-->
+<!--    <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'">-->
     <title>Hello World!</title>
-  </head>
-  <body>
-    <h1>Hello World!</h1>
-    We are using Node.js <span id="node-version"></span>,
-    Chromium <span id="chrome-version"></span>,
-    and Electron <span id="electron-version"></span>.
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
+    <script src="./node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="./node_modules/moment/min/moment.min.js"></script>
+    <script src="./node_modules/moment/min/locales.js"></script>
+    <script src="./node_modules/moment-business/dist/moment-business.min.js"></script>
 
-    <!-- You can also require other files to run in this process -->
-    <script src="./renderer.js"></script>
-  </body>
+    <style>
+        .jumbotron {
+            width: 100%;
+            padding: 20px;
+            background: #e9ecef8c;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <br>
+    <form>
+        <div class="inputs">
+        </div>
+
+        <hr>
+
+        <div class="buttons">
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <button type="submit" class="btn btn-success js-submit">Vypočítat</button>
+                </div>
+                <div class="form-group col-md-6 text-right">
+                    <button type="submit" class="btn btn-secondary js-add-row">Přidat další</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="js-result-table" style="display: none">
+            <br>
+            <h1 class="display-4">Výsledek</h1>
+
+            <table class="table">
+                <tbody>
+                <tr>
+                    <th>Hodin služby</th>
+                    <td class="js-result-onCallHours"></td>
+                </tr>
+                <tr>
+                    <th>MDs služby</th>
+                    <td class="js-result-onCallMDs"></td>
+                </tr>
+                <tr>
+                    <th>Odpracovaných hodin</th>
+                    <td class="js-result-workedHours"></td>
+                </tr>
+                <tr>
+                    <th>Odpracovaných MDs</th>
+                    <td class="js-result-workedMDs"></td>
+                </tr>
+                <tr>
+                    <th>Hodin k fakturaci</th>
+                    <td class="js-result-paidHours"></td>
+                </tr>
+                <tr class="table-success">
+                    <th>MDs k fakturaci</th>
+                    <td class="js-result-paidMDs"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </form>
+</div>
+
+
+<div style="display: none">
+    <div class="form-row js-to-clone-input-row">
+        <div class="jumbotron">
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text js-from">od</span>
+                        </div>
+                        <input type="date" class="form-control rounded-right js-from">
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text js-to">do</span>
+                        </div>
+                        <input type="date" class="form-control rounded-right js-to">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary js-remove-row" type="button">Odstranit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input js-work" type="checkbox" id="work_checkbox">
+                            <label class="form-check-label" for="work_checkbox">Pracoval jsem</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="js-work-wrapper" style="display: none">
+                    <br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table">
+                                <tbody>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <table>
+        <tr class="js-to-clone-work-row">
+            <td width="50" class="day"></td>
+            <td class="date"></td>
+            <td>
+                <div class="input-group">
+                    <input type="number" class="form-control js-hours" value="0">
+                    <div class="input-group-append">
+                        <span class="input-group-text">hodin</span>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+
+
+<script src="./renderer.js"></script>
+<script src="./oncall.js"></script>
+</body>
 </html>
